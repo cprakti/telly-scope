@@ -9,11 +9,11 @@ var availableContent = function(args) {
   this.display_name = args.display_name || "unknown";
 }
 
+  var shows;
+  var sources;
 
 $(document).ready (function(){
 
-var shows = [];
-var sources = [];
 
   $('#title-input').on ('submit', function(event) {
     event.preventDefault();
@@ -30,11 +30,11 @@ var sources = [];
     dataType: 'json'
     }).done(function(response){
     return response.results.forEach(function(item){
+      shows = []
       return shows.push( new Tv(item) )
     })
 
     }).then(function(resp){
-      $("#title").append(shows[0].title)
       var show_id = shows[0].id
       var search_available_content = BASE_URL + API_KEY + "/show/" + shows[0].id + "/available_content";
       $.ajax({
@@ -42,13 +42,17 @@ var sources = [];
         url: search_available_content,
         dataType: 'json'
       }).done(function(response){
+        sources = []
         return response.results.web.episodes.all_sources.forEach(function(item) {
           return sources.push( new availableContent(item))
         })
       }).then(function(resp){
+      $("#available-sources").html("")
+      $("#title").html(shows[0].title)
       for (var i in sources) {
-        $("#first_aired").append(sources[i].display_name)
+        $("#available-sources").append(sources[i].display_name)
       }
+
       })
 
   });
