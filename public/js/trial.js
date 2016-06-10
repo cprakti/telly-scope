@@ -31,7 +31,7 @@ $(document).ready (function(){
         return shows.push( new Tv(item))
       })
     })
-      debugger;
+
     console.log(shows)
 
 
