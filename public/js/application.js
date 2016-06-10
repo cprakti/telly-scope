@@ -11,6 +11,7 @@ var availableContent = function(args) {
 
   var shows;
   var sources;
+  var show_id;
 
 $(document).ready (function(){
 
@@ -29,14 +30,14 @@ $(document).ready (function(){
     url: search_url_title_id,
     dataType: 'json'
     }).done(function(response){
-    return response.results.forEach(function(item){
       shows = []
+    return response.results.forEach(function(item){
       return shows.push( new Tv(item) )
     })
-
     }).then(function(resp){
-      var show_id = shows[0].id
-      var search_available_content = BASE_URL + API_KEY + "/show/" + shows[0].id + "/available_content";
+      show_id = shows[0].id
+      var search_available_content = BASE_URL + API_KEY + "/show/" + show_id + "/available_content";
+
       $.ajax({
         method: "GET",
         url: search_available_content,
