@@ -19,7 +19,7 @@ $(document).ready (function(){
     event.preventDefault();
 
     $target = $(event.target)
-    var API_KEY = "jpoBwnzeZ3kKrwKVt1oBGcJE5Z9y0f";
+    var API_KEY = "2Ctcdxaw2q1s1rLdbyhm4Acna4kdC5";
     var BASE_URL = "https://api-public.guidebox.com/v1.43/US/";
     var TITLE = $target.find("input").val();
     var search_url_title_id = BASE_URL + API_KEY + "/search/title/" + TITLE + "/fuzzy";
@@ -50,9 +50,9 @@ $(document).ready (function(){
       $("#available-sources").html("")
       $("#title").html(shows[0].title)
       for (var i in sources) {
-        $("#available-sources").append(sources[i].display_name)
+        $("#available-sources").append('<li>'+ sources[i].display_name + " " + '</li>')
       }
-
+      $("#title-input-box").val("")
       })
 
   });
