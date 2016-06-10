@@ -6,7 +6,7 @@ var Tv = function(args) {
 }
 
 var availableContent = function(args) {
-  this.available_content = args.available_content || "unknown";
+  this.display_name = args.display_name || "unknown";
 }
 
 
@@ -32,11 +32,26 @@ var sources = [];
     return response.results.forEach(function(item){
       return shows.push( new Tv(item) )
     })
+
     }).then(function(resp){
       $("#title").append(shows[0].title)
-      $("#first_aired").append(shows[0].first_aired)
+      var show_id = shows[0].id
+      var search_available_content = BASE_URL + API_KEY + "/show/" + shows[0].id + "/available_content";
+      $.ajax({
+        method: "GET",
+        url: search_available_content,
+        dataType: 'json'
+      }).done(function(response){
+        return response.results.web.episodes.all_sources.forEach(function(item) {
+          return sources.push( new availableContent(item))
+        })
+      }).then(function(resp){
+      for (var i in sources) {
+        $("#first_aired").append(sources[i].display_name)
+      }
+      })
+
   });
-      debugger
 
   });
 
