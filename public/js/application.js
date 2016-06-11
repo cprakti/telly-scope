@@ -1,5 +1,3 @@
-
-// https://api-public.guidebox.com/v1.43/US/jpoBwnzeZ3kKrwKVt1oBGcJE5Z9y0f/search/title/Arrested%252520Development/fuzzy
 var Tv = function(args) {
   this.title = args.title || "unknown";
   this.id = args.id || "unknown";
@@ -34,7 +32,13 @@ $(document).ready (function(){
     return response.results.forEach(function(item){
       return shows.push( new Tv(item) )
     })
+    }).fail(function(error){
+      $("#available-sources").append('<li>' + error.statusText + '</li>')
     }).then(function(resp){
+        if (shows.length === 0) {
+        $("#available-sources").append('<li>Please try a different search.</li>')
+        } else {
+         
       show_id = shows[0].id
       var search_available_content = BASE_URL + API_KEY + "/show/" + show_id + "/available_content";
 
@@ -47,6 +51,8 @@ $(document).ready (function(){
         return response.results.web.episodes.all_sources.forEach(function(item) {
           return sources.push( new availableContent(item))
         })
+      }).fail(function(error){
+        $("#available-sources").append('<li>' + error.statusText + '</li>')
       }).then(function(resp){
       $("#available-sources").html("")
       $("#title").html(shows[0].title)
@@ -55,11 +61,7 @@ $(document).ready (function(){
       }
       $("#title-input-box").val("")
       })
-
+        }
+    });
   });
-
-  });
-
-
-
 });
