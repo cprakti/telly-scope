@@ -17,6 +17,10 @@ $(document).ready (function(){
   $('#title-input').on ('submit', function(event) {
     event.preventDefault();
 
+    $("#pending").append("Searching the database...");
+    $("#available-sources").html("");
+    $("#title").html("");
+
     $target = $(event.target)
     var API_KEY = "2Ctcdxaw2q1s1rLdbyhm4Acna4kdC5";
     var BASE_URL = "https://api-public.guidebox.com/v1.43/US/";
@@ -47,6 +51,7 @@ $(document).ready (function(){
         url: search_available_content,
         dataType: 'json'
       }).done(function(response){
+        $("#pending").html("")
         sources = []
         return response.results.web.episodes.all_sources.forEach(function(item) {
           return sources.push( new availableContent(item))
@@ -55,11 +60,12 @@ $(document).ready (function(){
         $("#available-sources").append('<li>' + error.statusText + '</li>')
       }).then(function(resp){
       $("#available-sources").html("")
-      $("#title").html(shows[0].title)
+      $("#title").html(shows[0].title + " is playing on...")
       for (var i in sources) {
         $("#available-sources").append('<li>'+ sources[i].display_name + " " + '</li>')
       }
       $("#title-input-box").val("")
+
       })
         }
     });
