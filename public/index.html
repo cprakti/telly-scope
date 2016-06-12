@@ -11,14 +11,18 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 <!-- end of bootstrap -->
+  <link rel="stylesheet" href="/css/application.css">
   </head>
   <body>
-    <h1 style="margin: 100px;"> telly-scope!</h1>
+
     <div class="container">
-  <form id="title-input" method="/shows" action="post">
-    <input id="title-input-box"name="title" placeholder="tv title">
-    <input type="submit" value="submit">
+    <h1> telly-scope!</h1>
+    <p> Type in a tv show title to see where you can watch it online: </p>
+  <form  class="form-inline" id="title-input" method="/shows" action="post">
+    <input class="form-control" id="title-input-box" name="title" placeholder="television show">
+    <input class="btn btn-primary" type="submit" value="submit">
   </form>
+    <div id="pending"></div>
     <div id="title"></div>
     <div id="available-sources"> <ul></ul></div>
     </div>
