@@ -18,6 +18,8 @@ $(document).ready (function(){
     event.preventDefault();
 
     $("#pending").append("Searching the database...");
+    $("#available-sources").html("");
+    $("#title").html("");
 
     $target = $(event.target)
     var API_KEY = "2Ctcdxaw2q1s1rLdbyhm4Acna4kdC5";
